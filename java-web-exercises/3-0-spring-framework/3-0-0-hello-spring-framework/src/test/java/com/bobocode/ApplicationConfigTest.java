@@ -4,6 +4,7 @@ import com.bobocode.config.ApplicationConfig;
 import com.bobocode.dao.AccountDao;
 import com.bobocode.dao.FakeAccountDao;
 import com.bobocode.service.AccountService;
+import org.hamcrest.generator.FactoryMethod;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +14,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApplicationConfigTest {
@@ -59,7 +63,6 @@ class ApplicationConfigTest {
 
         assertNotNull(component);
     }
-
     @Test
     @Order(5)
     @DisplayName("AccountDao constructor is marked with @Autowired")
@@ -68,6 +71,7 @@ class ApplicationConfigTest {
 
         assertNotNull(autowired);
     }
+
 
     @Test
     @Order(6)

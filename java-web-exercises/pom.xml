@@ -16,6 +16,7 @@
         <module>3-0-spring-framework</module>
         <module>lesson-demo</module>
         <module>Task-3</module>
+        <module>3-0-spring-framework/practical-2-task-2</module>
     </modules>
 
     <properties>
