@@ -10,13 +10,13 @@
     <packaging>pom</packaging>
     <modules>
         <module>java-web-exercises-util</module>
-        <module>0-0-intro</module>
         <module>1-0-networking-and-http</module>
         <module>2-0-servlet-api</module>
         <module>3-0-spring-framework</module>
-        <module>lesson-demo</module>
+        <module>java-web-exercises-util</module>
         <module>Task-3</module>
-        <module>3-0-spring-framework/practical-2-task-2</module>
+        <module>practical-2-task-2</module>
+        <module>practical-3-task-2</module>
     </modules>
 
     <properties>
