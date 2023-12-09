@@ -1,6 +1,13 @@
 package com.bobocode.web.controller;
 
 import com.bobocode.dao.AccountDao;
+import com.bobocode.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,6 +23,47 @@ import com.bobocode.dao.AccountDao;
  * todo: 7. Implement method that handles DELETE request with id as path variable removes an account by id
  * todo:    Configure HTTP response status code 204 - NO CONTENT
  */
+
+@RestController
+@RequestMapping("/accounts")
 public class AccountRestController {
+
+    @Autowired
+    private AccountDao accountDao;
+
+    public AccountRestController(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    @GetMapping
+    public List<Account> getAllAccounts() {
+        return accountDao.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Account getAccountById(@PathVariable long id) {
+        return accountDao.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account createAccount(@RequestBody Account account) {
+        return accountDao.save(account);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateAccount(@PathVariable long id, @RequestBody Account account) {
+        if (account.getId() != id) {
+            throw new IllegalStateException("Account ID in the path variable and Account object do not match");
+        }
+        accountDao.save(account);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAccount(@PathVariable long id) {
+        accountDao.remove(accountDao.findById(id));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
